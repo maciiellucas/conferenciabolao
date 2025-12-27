@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CONFERÊNCIA | BOLÃO 2025</title>
+    <title>SISTEMA DE CONFERÊNCIA | BOLÃO 2025</title>
     <style>
         :root {
             --primary: #00ff88;
@@ -98,7 +98,7 @@
             cursor: pointer; transition: 0.3s;
             display: flex; align-items: center; justify-content: center;
             text-transform: uppercase;
-            min-height: 56px; /* Altura mínima para evitar esmagamento */
+            min-height: 56px;
         }
 
         /* --- STATS --- */
@@ -108,7 +108,6 @@
             text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.5s;
         }
 
-        /* Efeito de Pulsar Dourado para o card de estatística */
         .winner-mode { 
             border-color: var(--gold) !important; 
             box-shadow: 0 0 25px var(--gold-glow);
@@ -139,7 +138,7 @@
         .games-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 20px; /* Aumentado para melhor respiro */
+            gap: 20px;
         }
 
         .game-item {
@@ -154,7 +153,6 @@
             transition: 0.3s;
         }
 
-        /* Destaque para o jogo vencedor na lista */
         .game-winner {
             border: 2px solid var(--gold) !important;
             background: rgba(241, 196, 15, 0.1) !important;
@@ -184,7 +182,7 @@
         @media (max-width: 768px) {
             .input-group { 
                 flex-direction: column; 
-                gap: 15px; /* Mais espaço entre input e botão */
+                gap: 15px;
             }
             .btn-check {
                 padding: 18px; 
@@ -197,7 +195,7 @@
             }
             .games-grid { 
                 grid-template-columns: 1fr; 
-                gap: 15px; /* Mais espaço entre os cartões de jogo no celular */
+                gap: 15px;
             }
             .game-item { 
                 flex-direction: row; 
@@ -220,7 +218,7 @@
 <div class="container">
     <header class="header">
         <div class="header-content">
-            <h1>BOLÃO MEGA DA VIRADA 2025/26</h1>
+            <h1>Bolão Mega 2025</h1>
             <div class="prize-box">
                 <span class="prize-value">R$ 1.000.000.000,00</span>
             </div>
@@ -229,7 +227,7 @@
 
     <div class="search-card">
         <div class="input-group">
-            <input type="text" id="sorteados" placeholder="Ex: 01 02 03 04 05 06" inputmode="numeric">
+            <input type="text" id="sorteados" placeholder="Ex: 01 02 03 04 05 06" inputmode="decimal">
             <button class="btn-check" onclick="conferir()">Conferir Resultado</button>
         </div>
     </div>
@@ -301,7 +299,6 @@ function desenhar(sorteados = []) {
         let h = `<div class="player-card"><div class="player-name">${p.nome}</div><div class="games-grid">`;
         p.jogos.forEach((j, i) => {
             let ac = j.filter(n => sorteados.includes(n)).length;
-            // Verifica se é o grande vencedor (6 acertos)
             let isWinner = (ac === 6);
             
             h += `<div class="game-item ${isWinner ? 'game-winner' : ''}">
@@ -319,7 +316,7 @@ function desenhar(sorteados = []) {
 function conferir() {
     const raw = document.getElementById('sorteados').value.trim();
     if(!raw) return;
-    const sorteados = raw.split(/\s+/).map(Number).filter(n => n > 0 && n <= 60);
+    const sorteados = raw.split(/[\s,.-]+/).map(Number).filter(n => n > 0 && n <= 60);
     if(sorteados.length !== 6) return alert("Insira os 6 números sorteados!");
     
     desenhar(sorteados);
