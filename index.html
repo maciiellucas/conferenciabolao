@@ -126,19 +126,22 @@
         /* --- LISTA DE JOGOS --- */
         .player-card {
             background: var(--card-bg); border-radius: 22px;
-            padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px 15px; /* Padding reduzido nas laterais para aproveitar espaço */
+            margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);
         }
 
         .player-name {
             font-size: 1.3rem; font-weight: 800; color: var(--primary);
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+            padding-left: 5px;
         }
         .player-name::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
 
         .games-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 20px;
+            gap: 15px;
+            width: 100%;
         }
 
         .game-item {
@@ -151,6 +154,7 @@
             flex-direction: column;
             align-items: center;
             transition: 0.3s;
+            width: 100%; /* Garante que o item ocupe o grid */
         }
 
         .game-winner {
@@ -180,6 +184,8 @@
 
         /* --- AJUSTES MOBILE --- */
         @media (max-width: 768px) {
+            .player-card { padding: 20px 10px; } /* Aproveita mais as bordas vermelhas da sua foto */
+            
             .input-group { 
                 flex-direction: column; 
                 gap: 15px;
@@ -195,14 +201,16 @@
             }
             .games-grid { 
                 grid-template-columns: 1fr; 
-                gap: 15px;
+                gap: 12px;
             }
             .game-item { 
                 flex-direction: row; 
                 justify-content: space-between; 
-                padding: 15px 20px; 
+                padding: 12px 15px; 
+                min-height: 60px;
             }
-            .balls { margin: 0; }
+            .balls { margin: 0; gap: 4px; }
+            .ball { width: 28px; height: 28px; font-size: 0.7rem; }
         }
 
         footer { text-align: center; padding: 40px; margin-top: 30px; }
@@ -227,7 +235,7 @@
 
     <div class="search-card">
         <div class="input-group">
-            <input type="text" id="sorteados" placeholder="Ex: 01 02 03 04 05 06" inputmode="decimal">
+            <input type="text" id="sorteados" placeholder="Ex: 01 02 03 04 05 06" inputmode="search">
             <button class="btn-check" onclick="conferir()">Conferir Resultado</button>
         </div>
     </div>
